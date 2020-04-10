@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import "semantic-ui-css/semantic.min.css";
+import { Divider } from "semantic-ui-react";
+import Count from "./Count/Count";
+import ModalForm from "./Box/Modal";
 
-function App() {
+//style-components
+import { Header, HeaderText} from "./style-components/Header";
+import { SideBar } from "./style-components/SideBar";
+import { Label } from "./style-components/FormStyles";
+
+const App: React.FC = () => {
+  const [count, setCount] = React.useState(0);
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    setCount(count - 1);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Header> <HeaderText> React examples </HeaderText></Header>
+      <Divider/>
+      <SideBar>
+        {/* simple count example} */}
+        <Label> Count example: </Label>
+        <Divider hidden />
+        <Count
+          count={count}
+          incrementClick={increment}
+          decrementClick={decrement}
+        ></Count>
+        <Label> {count}</Label>
+        <Divider />
+        {/* form example. using formik, yup for type validation } */}
+        <Label> Form example: </Label>
+        <Divider hidden />
+        <ModalForm />
+        <Divider />
+      </SideBar>
+    </React.Fragment>
   );
-}
+};
 
 export default App;
